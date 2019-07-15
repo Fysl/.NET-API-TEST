@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ApiConsumerApp.Models.UsersModel>
+
+@{
+    ViewBag.Title = "ViewUsers";
+}
+
+<h2>ViewUsers</h2>
+
+ 
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cell)
+            </th>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+
+        </tr>
+    </thead>
+    @{
+        if (Model == null)
+        {
+            @Html.Label("NO RECORD !!!")
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cell)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MailAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "UpdateUser", new { id = item.ID }, new { @class = "glyphicon glyphicon-pencil" })
+
+                    </td>
+                    <td>
+                        @*@Html.ActionLink(" ", "DeleteUser", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })*@
+                        <a onclick="Delete(@item.ID)"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+
+                </tr>
+            }
+        }
+    }
+
+   
+</table>
+
+<script>
+ 
+    function Delete(id) {
+        alertify.confirm('CRUD Operations', 'Are you sure to Delete this Record!!', function () {
+            window.location.href = '/UsersMVC/DeleteUser/' + id;
+        }, null);
+    }
+</script>
+
